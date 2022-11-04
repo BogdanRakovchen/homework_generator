@@ -29,6 +29,7 @@ public class ExaminerServiceTest {
     @BeforeEach
     public void init() {
         questionList.add(new Question("1", "2"));
+
         when(javaQuestionService.getAllQuestions()).thenReturn(List.of(new Question("1", "2")));
         when(javaQuestionService.getRandomQuestion(1)).thenReturn("1");
     }
