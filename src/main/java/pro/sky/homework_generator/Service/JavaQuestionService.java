@@ -34,13 +34,11 @@ public class JavaQuestionService implements QuestionService {
     };
 
     @Override
-    public String getRandomQuestion(int amount) {
+    public int getRandomQuestion(int amount) {
 
         int number = new Random().nextInt(amount);
 
-        String num = number + "";
-
-        return num;
+        return number;
     };
 
 

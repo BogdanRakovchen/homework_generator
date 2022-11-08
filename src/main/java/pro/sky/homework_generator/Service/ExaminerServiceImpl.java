@@ -15,31 +15,24 @@ public class ExaminerServiceImpl implements ExaminerService {
 
 
     private QuestionService questionService;
-    private ExaminerService examinerService;
 
-    public ExaminerServiceImpl(QuestionService questionService,
-                               ExaminerService examinerService) {
+    public ExaminerServiceImpl(QuestionService questionService) {
         this.questionService = questionService;
-        this.examinerService = examinerService;
+
     }
 
     @Override
     public List<Question> getQuestions(int amount) {
 
-        Map<String, Question> questionCollection = new HashMap<>(Map.of());
+        List<Question> questionList = new ArrayList<>();
 
         if(amount > questionService.getAllQuestions().size()) {
             throw new MaxLimitRequestOfQuestions();
         }
 
         for(Question q : questionService.getAllQuestions()) {
-            questionCollection.put(questionService.getRandomQuestion(amount), q);
+            questionList.set(questionService.getRandomQuestion(amount), q);
         }
-
-
-        List<Question> questionList = questionCollection.values()
-                .stream()
-                .collect(Collectors.toList());
 
         return questionList;
 

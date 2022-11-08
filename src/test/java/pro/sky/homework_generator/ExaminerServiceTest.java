@@ -24,20 +24,20 @@ public class ExaminerServiceTest {
     @InjectMocks
     private ExaminerServiceImpl examinerService;
 
-    List<Question> questionList = new ArrayList<>(List.of());
+    List<Question> questionsList = new ArrayList<>(List.of());
 
     @BeforeEach
     public void init() {
-        questionList.add(new Question("1", "2"));
+        questionsList.add(new Question("1", "2"));
 
         when(javaQuestionService.getAllQuestions()).thenReturn(List.of(new Question("1", "2")));
-        when(javaQuestionService.getRandomQuestion(1)).thenReturn("1");
+        when(javaQuestionService.getRandomQuestion(1)).thenReturn(0);
     }
 
     @Test
     public void shouldGetQuestionRandomOrder() {
         List<Question> questions = examinerService.getQuestions(1);
-        Assertions.assertEquals(questionList, questions);
+        Assertions.assertEquals(questionsList, questions);
 
     }
 
