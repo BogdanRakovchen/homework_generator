@@ -31,6 +31,7 @@ public class ExaminerServiceImpl implements ExaminerService {
         }
 
         for(Question q : questionService.getAllQuestions()) {
+            questionList.add(q);
             questionList.set(questionService.getRandomQuestion(amount), q);
         }
 
