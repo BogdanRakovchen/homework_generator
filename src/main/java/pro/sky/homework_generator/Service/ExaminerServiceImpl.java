@@ -24,17 +24,26 @@ public class ExaminerServiceImpl implements ExaminerService {
     @Override
     public List<Question> getQuestions(int amount) {
 
-        List<Question> questionList = new ArrayList<>();
+        List<Question> questionList1 = new ArrayList<>();
+        List<Question> questionList2 = new ArrayList<>();
+
+        questionList1.addAll(questionService.getAllQuestions());
+
 
         if(amount > questionService.getAllQuestions().size()) {
             throw new MaxLimitRequestOfQuestions();
         }
 
-        for(Question q : questionService.getAllQuestions()) {
-            questionList.set(questionService.getRandomQuestion(amount), q);
+
+        for (Question q: questionList1) {
+            questionList2 = questionList1.stream()
+                            .limit(amount)
+                                    .collect(Collectors.toList());
+
+            questionList2.set(questionService.getRandomQuestion(amount), q);
         }
 
-        return questionList;
+       return questionList2;
 
     };
 
