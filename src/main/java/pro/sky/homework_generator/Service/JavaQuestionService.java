@@ -12,11 +12,8 @@ import java.util.stream.Collectors;
 @Service
 public class JavaQuestionService implements QuestionService {
 
-    public Collection<Question> getQuestions() {
-        return questions;
-    }
 
-    private Collection<Question> questions = new HashSet<>(Set.of());
+    private final Collection<Question> questions = new HashSet<>();
 
 
     @Override
@@ -37,13 +34,11 @@ public class JavaQuestionService implements QuestionService {
     };
 
     @Override
-    public String getRandomQuestion(int amount) {
+    public int getRandomQuestion(int amount) {
 
         int number = new Random().nextInt(amount);
 
-        String num = number + "";
-
-        return num;
+        return number;
     };
 
 

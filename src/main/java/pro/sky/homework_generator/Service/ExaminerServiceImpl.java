@@ -13,26 +13,35 @@ import java.util.stream.Collectors;
 @Service
 public class ExaminerServiceImpl implements ExaminerService {
 
-    @Autowired
-    private JavaQuestionService questionService;
 
-    Map<String, Question> questionCollection = new HashMap<>(Map.of());
+    private QuestionService questionService;
+
+    public ExaminerServiceImpl(QuestionService questionService) {
+        this.questionService = questionService;
+
+    }
+
     @Override
     public List<Question> getQuestions(int amount) {
-
-        for(Question q : questionService.getAllQuestions()) {
-            questionCollection.put(questionService.getRandomQuestion(amount), q);
-        }
 
         if(amount > questionService.getAllQuestions().size()) {
             throw new MaxLimitRequestOfQuestions();
         }
 
-        List<Question> questionList = questionCollection.values()
-                .stream()
-                .collect(Collectors.toList());
+        List<Question> questionList1 = new ArrayList<>();
+        List<Question> questionList2 = new ArrayList<>();
 
-        return questionList;
+        questionList1.addAll(questionService.getAllQuestions());
+
+        for (Question q: questionList1) {
+            questionList2 = questionList1.stream()
+                    .limit(amount)
+                    .collect(Collectors.toList());
+
+            questionList2.set(questionService.getRandomQuestion(amount), q);
+        }
+
+        return questionList2;
 
     };
 
